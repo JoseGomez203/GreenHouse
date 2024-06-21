@@ -1,0 +1,56 @@
+{% extends './layout.html' %}
+
+{% block body %}
+<div class="container marketing">
+  <div class="d-flex align-items-center p-3 my-3 text-white bg-purple rounded shadow-sm">
+    <img class="me-3" src="../static/images/Logo_GreenHouse-removebg-preview.png" alt="" width="120px" height="120px">
+    <div class="lh-1">
+      <h1 class="h6 mb-0 text-black lh-1">Cultivo 1</h1>
+      <small class="text-dark">Alberca, CA</small>
+    </div>
+    <div class="ms-4">
+      <a href="/sign" class="btn btn-outline-primary btn-lg border-0 " style="text-decoration: none;">
+        <i class="bi bi-plus-circle" style="font-size: 4rem; color: black;"></i>
+        <h2 class="fw-normal ms-4" style="color: black;">Agregar</h2>
+      </a>
+    </div>
+  </div>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-4">
+        <div class="text-center">
+          <a href="/humedad" class="btn btn-outline-primary btn-lg border-0" style="text-decoration: none;">
+            <i class="bi bi-cloud-drizzle" style="font-size: 4rem; color: black;"></i>
+            <h2 class="fw-normal" style="color: black;">Humedad</h2>
+          </a>
+        </div>
+      </div>
+      
+      <div class="col-lg-4">
+        <div class="text-center">
+          <button class="btn btn-outline-primary btn-lg border-0">
+            <a href="/temperatura" class="btn btn-outline-primary btn-lg border-0" style="text-decoration: none;">
+             <i class="bi bi-thermometer-sun" style="font-size: 4rem; color: black;"></i>
+             <h2 class="fw-normal" style="color: black;">Temperatura</h2>
+            </a>
+          </button>
+        </div>
+      </div>
+      
+      <div class="col-lg-4">
+        <div class="text-center">
+          <button class="btn btn-outline-primary btn-lg border-0">
+            <a href="/iluminacion" class="btn btn-outline-primary btn-lg border-0" style="text-decoration: none;">
+             <i class="bi bi-lightbulb-fill" style="font-size: 4rem; color: black;"></i>
+             <h2 class="fw-normal" style="color: black;">Iluminacion</h2>
+            </a>
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+      
+
+{% endblock %}
