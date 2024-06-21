@@ -5,10 +5,10 @@ from config import config
 app = Flask(__name__,template_folder='templates')
 app.static_folder = 'static'
 
-app.config['MYSQL_HOST']='localhost'
-app.config['MYSQL_USER']='root'
-app.config['MYSQL_PASSWORD']=''#borrar contraseña si la utiliza Jose Pillo
-app.config['MYSQL_DB']='greenhouse2'
+app.config['MYSQL_HOST']='greendb.c1qqecmqesk2.us-east-1.rds.amazonaws.com'
+app.config['MYSQL_USER']='admin'
+app.config['MYSQL_PASSWORD']='greenhouse'#borrar contraseña si la utiliza Jose Pillo
+app.config['MYSQL_DB']='greenhouse'
 app.config['MYSQL_CURORCLASS']='DictCursor'
 mysql=MySQL(app)
 
@@ -40,12 +40,12 @@ def recuperar():
 @app.route('/login', methods=["GET", "POST"])
 def login():
 
-    if request.method == 'POST' and 'txtEmail' in request.form and 'txtPassword' in request.form:
-        _email = request.form['txtEmail']
+    if request.method == 'POST' and 'txtUsername' in request.form and 'txtPassword' in request.form:
+        _username = request.form['txtUsername']
         _password = request.form['txtPassword']
 
         cur = mysql.connection.cursor()
-        cur.execute('SELECT * FROM users WHERE email = %s AND password = %s', (_email, _password,))
+        cur.execute('SELECT * FROM usuarios WHERE Username = %s AND Password = %s', (_username, _password,))
         account = cur.fetchone()
 
         if account:
