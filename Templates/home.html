@@ -8,10 +8,11 @@
       <h1 class="h6 mb-0 text-black lh-1">Cultivo 1</h1>
       <small class="text-dark">Alberca, CA</small>
     </div>
-    <div class="ms-4">
-      <a href="/sign" class="btn btn-outline-primary btn-lg border-0 " style="text-decoration: none;">
+    <div class="text-center" class="mx-auto" style="width: 18%;">
+      <a href="/sign" class="btn btn-outline-primary btn-lg border-0 ml-8">
         <i class="bi bi-plus-circle" style="font-size: 4rem; color: black;"></i>
-        <h2 class="fw-normal ms-4" style="color: black;">Agregar</h2>
+        <br>
+        <h2 class="fw-normal" style="color: black; display: inline-block;">Agregar</h2>
       </a>
     </div>
   </div>
@@ -21,6 +22,10 @@
         <div class="text-center">
           <a href="/humedad" class="btn btn-outline-primary btn-lg border-0" style="text-decoration: none;">
             <i class="bi bi-cloud-drizzle" style="font-size: 4rem; color: black;"></i>
+            <span style="font-size: 1rem; color: black; margin-left: 5px;">
+              <span style="display: inline-block;">Tiem: </span>
+              <span style="display: inline-block;">Humed: </span>
+            </span>
             <h2 class="fw-normal" style="color: black;">Humedad</h2>
           </a>
         </div>
@@ -31,6 +36,10 @@
           <button class="btn btn-outline-primary btn-lg border-0">
             <a href="/temperatura" class="btn btn-outline-primary btn-lg border-0" style="text-decoration: none;">
              <i class="bi bi-thermometer-sun" style="font-size: 4rem; color: black;"></i>
+             <span style="font-size: 1rem; color: black; margin-left: 5px;">
+              <span style="display: inline-block;">Tiem: </span>
+              <span style="display: inline-block;">Temp: </span>
+            </span>
              <h2 class="fw-normal" style="color: black;">Temperatura</h2>
             </a>
           </button>
@@ -41,16 +50,23 @@
         <div class="text-center">
           <button class="btn btn-outline-primary btn-lg border-0">
             <a href="/iluminacion" class="btn btn-outline-primary btn-lg border-0" style="text-decoration: none;">
-             <i class="bi bi-lightbulb-fill" style="font-size: 4rem; color: black;"></i>
-             <h2 class="fw-normal" style="color: black;">Iluminacion</h2>
+              <i class="bi bi-lightbulb-fill" style="font-size: 4rem; color: black;"></i>
+              <span style="font-size: 1rem; color: black; margin-left: 5px;">
+                <span style="display: inline-block;">Tiem: </span>
+                <span style="display: inline-block;">Ilum: </span>
+              </span>
+              <h2 class="fw-normal" style="color: black;">Iluminacion</h2>
             </a>
           </button>
         </div>
       </div>
-      
+
     </div>
   </div>
+  <br>
+  <br>
+  <p class="text-center">
+    <a class="btn btn-dark btn-lg px-5">Descargar reporte general</a>
+  </p>
   
-      
-
 {% endblock %}
