@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/static/css/styles2.css">
+    <title>Reporte General</title>
+    <style>
+        .content {
+            text-align: center;
+            margin: 20px auto;
+            width: 80%;
+            }
+        .line {
+            border-top: 1px solid black;
+            margin: 10px 0;
+        }
+        .info {
+            display: flex;
+            justify-content: space-between;
+        }
+        .left-align {
+            text-align: left;
+        }
+        .right-align {
+            text-align: right;
+        }
+        .temp1{
+            text-align: left;
+        }
+        .conte2{
+            text-align: center;
+            margin: 20px auto;
+            width: 80%;
+            
+        }
+        .temp2{
+            text-align: left;
+        }
+        .hum1{
+            text-align: left;
+        }
+        .hum2{
+            text-align: left;
+        }
+        .ilum1{
+            text-align: left;
+        }
+        .ilum2{
+            text-align: left;
+        }
+        .titulo{
+            text-align: center;
+        }
+        .img{
+            align-items: center;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between; 
+            padding: 10px 20px; 
+            background-color: #bebebe; 
+        }
+
+        .logo-container {
+            flex-shrink: 0;
+            margin-right: 20px;
+        }
+        .logo-container img {
+            margin-left: 150px;
+            width: 150px;
+            height: auto;
+        }
+        .titulo{
+            margin-right: 630px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <img src="/static/images/Logo_GreenHouse-removebg-preview.png" width="150px" height="150px">
+        </div>
+        <h1 class="titulo" style="color: rgb(255, 255, 255);">GreenHouse</h1>
+    </div>    
+    <div class="content">
+        <h2 class="text-center">Reporte general de estado</h2>
+        <div class="info">
+            <p class="left-align">Fecha:</p>
+            
+            <p class="left-align">Invernadero:</p>
+            <p class="right-align">Hora:</p>
+            
+            <p class="right-align">Usuario:</p>
+        </div>
+        <div class="line"></div>
+    </div>
+    <div class="conte2">
+        <p class="temp1">Temperatura</p>
+        <p class="temp2">Temperatura actual: </p>
+
+        <div class="container24">
+            <div class="chart">
+                <canvas id="myChart" width="800" height="400"></canvas>
+            </div>
+        </div>
+
+        <div class="line"></div>
+        <p class="hum1">Humedad</p>
+        <p class="hum2">Humedad actual:</p>
+
+        <div class="container25">
+            <div class="chart">
+                <canvas id="1Chart" width="800" height="400"></canvas>
+            </div>
+        </div>
+
+        <div class="line"></div>
+        <p class="ilum1">Iluminacion</p>
+        <p class="ilum2">Iluminacion actual:</p>
+
+        <div class="container26">
+            <div class="chart">
+                <canvas id="2Chart" width="800" height="400"></canvas>
+            </div>
+        </div>
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/static/js/chart1.js"></script>
+</html>

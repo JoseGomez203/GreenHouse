@@ -1,0 +1,32 @@
+.container24{
+    padding-top: 0rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 150px;
+}
+
+.container25{
+    padding-top: 0rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 150px;
+}
+
+
+.container26{
+    padding-top: 0rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 150px;
+}
+
+
+.chart{
+    padding: 2rem;
+    border-radius: 0rem;
+    background: #ffffff;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);
+}

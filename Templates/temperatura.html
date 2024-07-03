@@ -1,13 +1,30 @@
 {% extends './layout.html' %}
 
 {% block body %}
-<bod class="body1">
-    <div class="container3">
-        <canvas id="myChart"></canvas>
+<body>
+    <body style="background-color: #2D3937;"></body>
+    <div class="container23">
+        <div class="chart">
+            <canvas id="myChart" width="500" height="500"></canvas>
+        </div>
+        <div class="chart">
+            <div class="white">
+                <div>
+                    <h2>Temperatura actual: </h2>
+                </div>
+                <div>
+                    <h2>Fecha: </h2>
+                </div>
+                <div>
+                    <h2>Historial: </h2>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="../static/js/chart1.js"></script>
-<script src="../static/js/chart2.js"></script>
+
+
 
 {% endblock %}

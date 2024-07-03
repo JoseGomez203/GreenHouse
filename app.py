@@ -1,6 +1,7 @@
-from flask import Flask, render_template, redirect, request, Response, session, url_for
+from flask import Flask, render_template, redirect, request, Response, session, url_for, make_response
 from flask_mysqldb import MySQL, MySQLdb
 from config import config
+import pdfkit
 
 app = Flask(__name__,template_folder='templates')
 app.static_folder = 'static'
@@ -39,6 +40,21 @@ def humedad():
 @app.route('/recuperar')
 def recuperar():
     return render_template('recuperar.html')
+
+#--------------------------------------------
+
+path_to_wkhtmltopdf = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"
+config = pdfkit.configuration(wkhtmltopdf=path_to_wkhtmltopdf)
+@app.route('/download_report')
+def download_report():
+    rendered = render_template('reporte.html')
+    pdf = pdfkit.from_string(rendered, False, configuration=config)
+    response = make_response(pdf)
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Disposition'] = 'attachment; filename=report.pdf'
+    return response
+
+#--------------------------------------------
 
 #login...............................
 @app.route('/login', methods=["GET", "POST"])
