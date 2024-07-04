@@ -45,10 +45,17 @@ def recuperar():
 
 path_to_wkhtmltopdf = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"
 config = pdfkit.configuration(wkhtmltopdf=path_to_wkhtmltopdf)
+options = {
+    'no-outline': None,
+    'disable-smart-shrinking': None,
+    'no-stop-slow-scripts': None,
+    'enable-local-file-access': None,
+}
+
 @app.route('/download_report')
 def download_report():
     rendered = render_template('reporte.html')
-    pdf = pdfkit.from_string(rendered, False, configuration=config)
+    pdf = pdfkit.from_string(rendered, False, configuration=config, options=options)
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
     response.headers['Content-Disposition'] = 'attachment; filename=report.pdf'

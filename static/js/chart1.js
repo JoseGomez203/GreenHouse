@@ -20,7 +20,6 @@ new Chart(ctx, {
 });
 
 const ctx1 = document.getElementById('1Chart');
-
 new Chart(ctx1, {
   type: 'line',
   data: {
@@ -41,7 +40,6 @@ new Chart(ctx1, {
 });
 
 const ctx2 = document.getElementById('2Chart');
-
 new Chart(ctx2, {
   type: 'line',
   data: {
