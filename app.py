@@ -5,9 +5,9 @@ from config import config
 app = Flask(__name__,template_folder='templates')
 app.static_folder = 'static'
 
-app.config['MYSQL_HOST']='greendb.c1qqecmqesk2.us-east-1.rds.amazonaws.com'
+app.config['MYSQL_HOST']='database-1.ctq4miuy6qln.us-east-1.rds.amazonaws.com'
 app.config['MYSQL_USER']='admin'
-app.config['MYSQL_PASSWORD']='greenhouse'#borrar contraseña si la utiliza Jose Pillo
+app.config['MYSQL_PASSWORD']='password'#borrar contraseña si la utiliza Jose Pillo
 app.config['MYSQL_DB']='greenhouse'
 app.config['MYSQL_CURORCLASS']='DictCursor'
 mysql=MySQL(app)
