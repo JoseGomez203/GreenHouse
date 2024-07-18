@@ -1,7 +1,10 @@
 from flask import Flask, render_template, redirect, request, Response, session, url_for, make_response
 from flask_mysqldb import MySQL, MySQLdb
 from config import config
+import mysql.connector
 import pdfkit
+from humedad import consultar_ultimos_registros  
+from temperatura import consultar_ultimos_registros  
 
 app = Flask(__name__,template_folder='templates')
 app.static_folder = 'static'
@@ -9,7 +12,7 @@ app.static_folder = 'static'
 app.config['MYSQL_HOST']='localhost'
 app.config['MYSQL_USER']='root'
 app.config['MYSQL_PASSWORD']=''#borrar contraseña si la utiliza Jose Pillo
-app.config['MYSQL_DB']='greenhouse2'
+app.config['MYSQL_DB']='PI'
 app.config['MYSQL_CURORCLASS']='DictCursor'
 mysql=MySQL(app)
 
@@ -27,7 +30,13 @@ def control():
 
 @app.route('/temperatura')
 def temperatura():
-    return render_template('temperatura.html')
+    ids, temperatura, fecha = consultar_ultimos_registros()
+
+    if ids is None or temperatura is None:
+        return 'Error al obtener los datos de la base de datos'
+
+    return render_template('temperatura.html', ids=ids, temperatura=temperatura, fecha=fecha)
+
 
 @app.route('/iluminacion')
 def iluminacion():
@@ -35,7 +44,14 @@ def iluminacion():
 
 @app.route('/humedad')
 def humedad():
-    return render_template('humedad.html')
+    ids, humedades, fecha = consultar_ultimos_registros()
+
+    if ids is None or humedades is None:
+        return 'Error al obtener los datos de la base de datos'
+
+    return render_template('humedad.html', ids=ids, humedades=humedades, fecha=fecha)
+
+
 
 @app.route('/recuperar')
 def recuperar():
@@ -116,3 +132,9 @@ if __name__== '__main__':
     app.secret_key="jose_el_pillo"
 
     app.run(debug=True,port=5000, threaded=True)
+
+
+#--------------------------------------------------------------
+
+
+

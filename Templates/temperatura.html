@@ -2,7 +2,31 @@
 
 {% block body %}
 <body>
-    <body style="background-color: #2D3937;"></body>
+   
+    <div class="container title">
+        <h1>MÓDULO DE TEMPERATURA</h1>
+    </div>
+
+
+    <h1>Últimos 5 registros de temperatura</h1>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Temperatura</th>
+        <th>Fecha</th>
+    </tr>
+
+    {% for i in range(ids|length) %}
+    <tr>
+        <td>{{ ids[i] }}</td>
+        <td>{{ temperatura[i] }}</td>
+        <td>{{ fecha[i] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+
     <div class="container23">
         <div class="chart">
             <canvas id="myChart" width="500" height="500"></canvas>
