@@ -31,6 +31,21 @@
     font-style: normal;
 }
 
+.button-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.control-button {
+    flex: 1;
+    margin: 0 10px;
+    border-radius: 25px;
+}
+
 @media (max-width: 768px) {
     .container23 {
         flex-direction: column;
@@ -49,4 +64,26 @@
     .body1 {
         padding: 1rem;
     }
+}
+
+@media (max-width: 768px) {
+    .control-button {
+        flex: 1 1 calc(50% - 20px);
+    }
+    .control-button {
+        flex: 1 1 calc(50% - 20px);
+        margin: 10px;
+        border-radius: 25px;
+        text-align: center;
+    }
+    .button-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        gap: 10px;
+        box-sizing: border-box;
+    }
+    
 }
