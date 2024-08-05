@@ -21,7 +21,48 @@ mysql = MySQL(app)
 
 @app.route('/')
 def infor():
-    return render_template('index.html')
+    return render_template('Auth/login.html')
+
+@app.route('/home', methods=['GET', 'POST'])
+def home():
+    if 'logueado' in session:
+        cur = mysql.connection.cursor()
+        
+        if request.method == 'POST':
+            cultivo_id = request.form.get('cultivo_id')
+            if cultivo_id:
+                cur.execute("SELECT * FROM cultivo WHERE IDCultivo = %s AND IDUsuarios = %s", (cultivo_id, session['id']))
+            else:
+                cur.execute("SELECT * FROM cultivo WHERE IDUsuarios = %s", (session['id'],))
+        else:
+            cultivo_id = request.args.get('cultivo_id')
+            if cultivo_id:
+                cur.execute("SELECT * FROM cultivo WHERE IDCultivo = %s AND IDUsuarios = %s", (cultivo_id, session['id']))
+            else:
+                cur.execute("SELECT * FROM cultivo WHERE IDUsuarios = %s", (session['id'],))
+        
+        cultivos = cur.fetchall()
+        cur.close()
+        
+        if cultivos:
+            # Asumimos que tomamos el primer cultivo para mostrar si no se seleccionó ninguno
+            cultivo = cultivos[0]
+            
+            # Obtén cultivos relacionados (mismos usuarios pero diferentes IDs)
+            cur = mysql.connection.cursor()
+            cur.execute("SELECT * FROM cultivo WHERE IDUsuarios = %s AND IDCultivo != %s", (session['id'], cultivo['IDCultivo']))
+            related_cultivos = cur.fetchall()
+            cur.close()
+
+            # Depuración
+            print(f'Related Cultivos: {related_cultivos}')
+            
+            return render_template("home.html", cultivo=cultivo, related_cultivos=related_cultivos)
+        else:
+            return 'No hay cultivos registrados para este usuario'
+    return redirect(url_for('login'))
+
+
 
 @app.route('/sensor-data', methods=['POST'])
 def receive_data():
@@ -58,10 +99,6 @@ def receive_data():
     except Exception as e:
         print(f'Error al recibir datos: {e}')
         return 'Error en la solicitud', 400
-
-@app.route('/')
-def index():
-    return render_template('index.html')
 
 @app.route('/temperatura')
 def temperatura():
@@ -124,42 +161,86 @@ def login():
 
         if account:
             session['logueado'] = True
-            session['id'] = account['IDUsuarios']  # Asumiendo que 'ID' es la columna con el identificador del usuario en la tabla 'usuarios'
-            return render_template("home.html")
+            session['id'] = account['IDUsuarios']
+            return redirect(url_for('home'))
         else:
             return render_template('auth/login.html', mensaje="Usuario o contraseña incorrecto")
     else:
         return render_template('auth/login.html')
+    
+@app.route('/logout')
+def logout():
+    # Limpia la sesión del usuario
+    session.clear()
+    return redirect(url_for('login'))
 
-
-@app.route('/home')
-def home():
-    if 'logueado' in session:
-        return render_template("home.html")
-    return redirect(url_for('home.html'))
 
 #---------------------------------------------------
 @app.route('/acerca_de_nosotros')
 def acerca_de_nosotros():
     return render_template('acerca_de_nosotros.html')
 
-#registro....
-@app.route('/sign')
-def sign():
-    return render_template('auth/sign.html')
+#Cultivos CRUD
 
-@app.route('/sign-registro', methods=["GET", "POST"])
-def sign_registro():
-    email = request.form['txtEmail']
-    password = request.form['txtPassword']
 
-    cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO users (email,password,id_rol) Values (%s, %s, '1')", (email, password))
-    mysql.connection.commit()
+@app.route('/cultivos')
+def lista_cultivos():
+    if 'logueado' in session:
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM cultivo WHERE IDUsuarios = %s", (session['id'],))
+        cultivos = cur.fetchall()
+        cur.close()
+        return render_template('cultivos.html', cultivos=cultivos)
+    return redirect(url_for('login'))
 
-    return render_template("auth/login.html", mensaje2="Usuario registrado exitosamente")
+
+
+@app.route('/cultivo/agregar', methods=['GET', 'POST'])
+def add_cultivo():
+    if 'logueado' in session:
+        if request.method == 'POST':
+            nombre = request.form['nombre']
+            cur = mysql.connection.cursor()
+            cur.execute("INSERT INTO cultivo (Nombre_Cultivo, IDUsuarios) VALUES (%s, %s)", (nombre, session['id']))
+            mysql.connection.commit()
+            cur.close()
+            return redirect(url_for('lista_cultivos'))
+        return render_template('agregar_cultivo.html')
+    return redirect(url_for('login'))
+
+@app.route('/cultivo/editar/<int:cultivo_id>', methods=['GET', 'POST'])
+def editar_cultivo(cultivo_id):
+    if 'logueado' in session:
+        cur = mysql.connection.cursor()
+        if request.method == 'POST':
+            nombre = request.form['nombre']
+            cur.execute("UPDATE cultivo SET Nombre_Cultivo = %s WHERE IDCultivo = %s AND IDUsuarios = %s", (nombre, cultivo_id, session['id']))
+            mysql.connection.commit()
+            cur.close()
+            return redirect(url_for('lista_cultivos'))
+        cur.execute("SELECT * FROM cultivo WHERE IDCultivo = %s AND IDUsuarios = %s", (cultivo_id, session['id']))
+        cultivo = cur.fetchone()
+        cur.close()
+        return render_template('editar_cultivo.html', cultivo=cultivo)
+    return redirect(url_for('login'))
+
+
+@app.route('/cultivo/borrar/<int:cultivo_id>')
+def borrar_cultivo(cultivo_id):
+    if 'logueado' in session:
+        cur = mysql.connection.cursor()
+        cur.execute("DELETE FROM cultivo WHERE IDCultivo = %s AND IDUsuarios = %s", (cultivo_id, session['id']))
+        mysql.connection.commit()
+        cur.close()
+        return redirect(url_for('lista_cultivos'))
+    return redirect(url_for('login'))
+
+
 
 #--------------------------------------------
+
+
+
 if __name__ == '__main__':
     app.secret_key = "jose_el_pillo"
     app.run(host='0.0.0.0', port=8080, debug=True)

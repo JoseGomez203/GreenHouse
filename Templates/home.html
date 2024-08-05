@@ -1,74 +1,104 @@
-{% extends './layout.html' %}
+{% extends 'layout.html' %}
 
 {% block body %}
 <div class="container marketing">
+  <!-- Información del cultivo -->
   <div class="d-flex align-items-center p-3 my-3 text-white bg-purple rounded shadow-sm">
-    <img class="me-3" src="../static/images/Logo_GreenHouse-removebg-preview.png" alt="" width="120px" height="120px">
+    <img class="me-3" src="{{ url_for('static', filename='images/Logo_GreenHouse-removebg-preview.png') }}" alt="" width="120px" height="120px">
     <div class="lh-1">
-      <h1 class="h6 mb-0 text-black lh-1">Cultivo 1</h1>
-      <small class="text-dark">Alberca, CA</small>
+      <small class="text-dark">Cultivo: </small>
+      <h1 class="h6 mb-0 text-black lh-1">{{ cultivo.Nombre_Cultivo }}</h1>
     </div>
-    <div class="text-center" class="mx-auto" style="width: 18%;">
-      <a href="/sign" class="btn btn-outline-primary btn-lg border-0 ml-8">
-        <i class="bi bi-plus-circle" style="font-size: 4rem; color: black;"></i>
-        <br>
-        <h2 class="fw-normal" style="color: black; display: inline-block;">Agregar</h2>
-      </a>
+
+    <!-- Menú desplegable para seleccionar cultivo -->
+    <div class="my-3">
+      <script>
+        function actualizarCultivo() {
+          const cultivoId = document.getElementById('cultivo_id').value;
+          if (cultivoId) {
+            window.location.href = `/home?cultivo_id=${cultivoId}`;
+          }
+        }
+      </script>
+      <label for="cultivo_id">Selecciona un cultivo:</label>
+      <select id="cultivo_id" onchange="actualizarCultivo()">
+        <option value="">Selecciona un cultivo</option>
+        {% for related in related_cultivos %}
+          <option value="{{ related.IDCultivo }}" {% if related.IDCultivo == cultivo.IDCultivo %}selected{% endif %}>
+            {{ related.Nombre_Cultivo }}
+          </option>
+        {% endfor %}
+      </select>
     </div>
-    <a href="/index" class="btn btn-dark btn-lg px-5 ml-auto">Cerrar sesion</a>
+
+    <h2>Cultivos Relacionados</h2>
+    <ul>
+      {% if related_cultivos %}
+        {% for related in related_cultivos %}
+          <li>ID: {{ related.IDCultivo }} - Nombre: {{ related.Nombre_Cultivo }}</li>
+        {% endfor %}
+      {% else %}
+        <li>No hay cultivos relacionados</li>
+      {% endif %}
+    </ul>
+  </div>
+  
+  <div class="text-center mx-auto" style="width: 18%;">
+    <a href="/cultivos" class="btn btn-outline-primary btn-lg border-0 ml-8">
+      <i class="bi bi-plus-circle" style="font-size: 4rem; color: black;"></i>
+      <br>
+      <h2 class="fw-normal" style="color: black; display: inline-block;">Agregar</h2>
+    </a>
+  </div>
+  <a href="/logout" class="btn btn-dark btn-lg px-5 ml-auto">Cerrar sesión</a>
+
+  <!-- Contenido del cultivo -->
+  <div class="row justify-content-center">
+    <div class="col-lg-4">
+      <div class="text-center">
+        <a href="/humedad" class="btn btn-outline-primary btn-lg border-0" style="text-decoration: none;">
+          <i class="bi bi-cloud-drizzle" style="font-size: 4rem; color: black;"></i>
+          <span style="font-size: 1rem; color: black; margin-left: 5px;">
+            <span style="display: inline-block;">Tiem: </span>
+            <span style="display: inline-block;">Humed: </span>
+          </span>
+          <h2 class="fw-normal" style="color: black;">Humedad</h2>
+        </a>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="text-center">
+        <a href="/temperatura" class="btn btn-outline-primary btn-lg border-0" style="text-decoration: none;">
+          <i class="bi bi-thermometer-sun" style="font-size: 4rem; color: black;"></i>
+          <span style="font-size: 1rem; color: black; margin-left: 5px;">
+            <span style="display: inline-block;">Tiem: </span>
+            <span style="display: inline-block;">Temp: </span>
+          </span>
+          <h2 class="fw-normal" style="color: black;">Temperatura</h2>
+        </a>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="text-center">
+        <a href="/iluminacion" class="btn btn-outline-primary btn-lg border-0" style="text-decoration: none;">
+          <i class="bi bi-lightbulb-fill" style="font-size: 4rem; color: black;"></i>
+          <span style="font-size: 1rem; color: black; margin-left: 5px;">
+            <span style="display: inline-block;">Tiem: </span>
+            <span style="display: inline-block;">Ilum: </span>
+          </span>
+          <h2 class="fw-normal" style="color: black;">Iluminación</h2>
+        </a>
+      </div>
+    </div>
   </div>
 
-    <div class="row justify-content-center">
-      <div class="col-lg-4">
-        <div class="text-center">
-          <a href="/humedad" class="btn btn-outline-primary btn-lg border-0" style="text-decoration: none;">
-            <i class="bi bi-cloud-drizzle" style="font-size: 4rem; color: black;"></i>
-            <span style="font-size: 1rem; color: black; margin-left: 5px;">
-              <span style="display: inline-block;">Tiem: </span>
-              <span style="display: inline-block;">Humed: </span>
-            </span>
-            <h2 class="fw-normal" style="color: black;">Humedad</h2>
-          </a>
-        </div>
-      </div>
-      
-      <div class="col-lg-4">
-        <div class="text-center">
-          <button class="btn btn-outline-primary btn-lg border-0">
-            <a href="/temperatura" class="btn btn-outline-primary btn-lg border-0" style="text-decoration: none;">
-             <i class="bi bi-thermometer-sun" style="font-size: 4rem; color: black;"></i>
-             <span style="font-size: 1rem; color: black; margin-left: 5px;">
-              <span style="display: inline-block;">Tiem: </span>
-              <span style="display: inline-block;">Temp: </span>
-            </span>
-             <h2 class="fw-normal" style="color: black;">Temperatura</h2>
-            </a>
-          </button>
-        </div>
-      </div>
-      
-      <div class="col-lg-4">
-        <div class="text-center">
-          <button class="btn btn-outline-primary btn-lg border-0">
-            <a href="/iluminacion" class="btn btn-outline-primary btn-lg border-0" style="text-decoration: none;">
-              <i class="bi bi-lightbulb-fill" style="font-size: 4rem; color: black;"></i>
-              <span style="font-size: 1rem; color: black; margin-left: 5px;">
-                <span style="display: inline-block;">Tiem: </span>
-                <span style="display: inline-block;">Ilum: </span>
-              </span>
-              <h2 class="fw-normal" style="color: black;">Iluminacion</h2>
-            </a>
-          </button>
-        </div>
-      </div>
-
-    </div>
-  </div>
   <br>
   <br>
   <p class="text-center">
     <a href="/download_report" class="btn btn-dark btn-lg px-5">Descargar reporte general</a>
   </p>
   <br>
-</body>
+</div>
 {% endblock %}

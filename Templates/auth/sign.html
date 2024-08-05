@@ -1,44 +1,36 @@
 {% extends './layout.html' %}
 
-
 {% block body %}
-<body style="background-image: url('https://cbu01.alicdn.com/img/ibank/2019/580/307/12777703085_540437618.jpg'); background-position: center; background-size: cover; background-repeat: no-repeat;"></body>
 <section class="vh-100 gradient-custom">
     <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-          <div class="card bg-dark text-white" style="border-radius: 1rem;">
-              <form class="form-signin" action="sign-registro" method="post">
-                <div class="card-body p-5 text-center">
-  
-                <div class="mb-md-5 mt-md-4 pb-5">
-  
-                    <h2 class="fw-bold mb-2 text-uppercase">Registro</h2>
-                    {% if mensaje %}
-                    {{ mensaje2  }}
-                    {% endif %}
-                    <p class="text-white-50 mb-5">Porfavor ingresa los siguientes datos</p>
-  
-                    <div class="form-outline form-white mb-4">
-                      <input type="email" id="email" class="form-control" name="txtEmail" placeholder="Nombre" />
-                      <label for="email">Nombre plantio</label>
-                    </div>
-  
-                    <div class="form-outline form-white mb-4">
-                      <input type="password" id="password" class="form-control" name="txtPassword" placeholder="Ubicación" />
-                      <label for="password">Ubicación</label>
-                    </div>
-  
-                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Registrar</button>
-                  
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                    <form class="form-signin" action="{{ url_for('sign_registro') }}" method="post">
+                        <div class="card-body p-5 text-center">
+                            <div class="mb-md-5 mt-md-4 pb-5">
+                                <h2 class="fw-bold mb-2 text-uppercase">Registro de Cultivo</h2>
+                                
+                                {% if mensaje2 %}
+                                <div class="alert alert-success" role="alert">
+                                    {{ mensaje2 }}
+                                </div>
+                                {% endif %}
+                                
+                                <p class="text-white-50 mb-5">Por favor ingresa el nombre del cultivo</p>
+
+                                <div class="form-outline form-white mb-4">
+                                    <input type="text" id="cultivo" class="form-control" name="cultivo" placeholder="Nombre" />
+                                    <label for="cultivo">Nombre Cultivo</label>
+                                </div>
+
+                                <button class="btn btn-outline-light btn-lg px-5" type="submit">Registrar</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-  
-              </form>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </section>
-  
+</section>
 {% endblock %}

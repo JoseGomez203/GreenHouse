@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="container py-5">
+    <h2 class="text-center">Editar Cultivo</h2>
+    <form action="{{ url_for('editar_cultivo', cultivo_id=cultivo.IDCultivo) }}" method="post">
+        <div class="form-group">
+            <label for="nombre">Nombre del Cultivo</label>
+            <input type="text" id="nombre" name="nombre" class="form-control" value="{{ cultivo.Nombre_Cultivo }}" required />
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Actualizar</button>
+    </form>
+</div>
+{% endblock %}
