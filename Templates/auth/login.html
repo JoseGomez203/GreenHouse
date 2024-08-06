@@ -20,16 +20,18 @@
                     {% if mensaje %}
                   {{ mensaje  }}
                   {% endif %}
-                  <p class="text-white-50 mb-5">Ingresa tus datos para iniciar sesion.!</p>
+                 
 
                   <div class="form-outline form-white mb-4">
+                    <label for="Username">USUARIO</label>
                     <input type="Username" id="Username" class="form-control" name="Username" placeholder="Introduce tu usuario" />
-                    <label for="Username">Nombre de Usuario</label>
+                   
                   </div>
 
                   <div class="form-outline form-white mb-4">
+                    <label for="password">CONTRASEÑA</label>
                     <input type="password" id="password" class="form-control" name="txtPassword" placeholder="Password" />
-                    <label for="password">Password</label>
+                   
                   </div>
 
                   <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="/recuperar">Forgot password?</a></p>
@@ -56,4 +58,11 @@
 <br>
 <br>
 <br><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 {% endblock %}

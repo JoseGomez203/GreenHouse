@@ -19,7 +19,7 @@ db.connect((err) => {
 
 app.get('/api/humedad', (req, res) => {
   const query = `
-    SELECT fecha, AVG(Humedad) AS promedio
+    SELECT AVG(Humedad) AS promedio
     FROM lectura
     GROUP BY fecha
     ORDER BY fecha DESC
@@ -33,7 +33,7 @@ app.get('/api/humedad', (req, res) => {
 
 app.get('/api/iluminacion', (req, res) => {
   const query = `
-    SELECT fecha, AVG(Iluminacion) AS promedio
+    SELECT AVG(Iluminacion) AS promedio
     FROM lectura
     GROUP BY fecha
     ORDER BY fecha DESC
@@ -47,7 +47,7 @@ app.get('/api/iluminacion', (req, res) => {
 
 app.get('/api/humedad-suelo', (req, res) => {
   const query = `
-    SELECT fecha, AVG(Temperatura) AS promedio
+    SELECT AVG(Temperatura) AS promedio
     FROM lectura
     GROUP BY fecha
     ORDER BY fecha DESC

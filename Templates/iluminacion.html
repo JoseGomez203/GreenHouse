@@ -3,18 +3,36 @@
 {% block body %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <body>
+    
+    <style>
+      
+table {
+    width: 50%;
+    margin: auto;
+    border-collapse: collapse;
+    text-align: center;
+}
 
-    <div class="container title">
-        <h1>MÓDULO DE ILUMICACIÓN</h1>
-    </div>
+th {
+    background-color: black; /* Encabezado negro */
+    color: white; /* Texto blanco */
+    border: 1px solid black;
+    padding: 10px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.5); /* Fondo blanco con 50% de transparencia */
+}
+    </style>
 
 
-    <h1>Últimos 5 registros de iluminación</h1>
 <table border="1">
     <tr>
-        <th>ID</th>
-        <th>iluminacion</th>
-        <th>Fecha</th>
+        <th>#</th>
+        <th>ILUMINACIÓN</th>
+        <th>FECHA Y HORA</th>
     </tr>
 
     {% for i in range(ids|length) %}
@@ -26,25 +44,13 @@
     {% endfor %}
 </table>
 
- 
-    <div class="container23">
-        <div class="chart">
-            <canvas id="Chart1" width="500" height="500"></canvas>
-        </div>
-        <div class="chart">
-            <div class="white">
-                <div>
-                    <h2>Temperatura actual: </h2>
-                </div>
-                <div>
-                    <h2>Fecha: </h2>
-                </div>
-                <div>
-                    <h2>Historial: </h2>
-                </div>
-            </div>
-        </div>
+<div class="container23">
+    <div class="chart">
+        <canvas id="Chart1" width="800" height="800"></canvas>
     </div>
+   
+</div>
+
 </body>
 
 <script src="../static/js/chart1.js"></script>
