@@ -4,7 +4,8 @@ from config import config
 import mysql.connector
 import pdfkit
 from humedad import consultar_ultimos_registros  
-from temperatura import consultar_ultimos_registros  
+from temperatura import consultar_ultimos_registros
+from iluminacion import consultar_ultimos_registros    
 from werkzeug.security import check_password_hash
 from datetime import datetime
 
@@ -111,7 +112,12 @@ def temperatura():
 
 @app.route('/iluminacion')
 def iluminacion():
-    return render_template('iluminacion.html')
+    ids, iluminacion, fecha = consultar_ultimos_registros()
+
+    if ids is None or iluminacion is None:
+        return 'Error al obtener los datos de la base de datos'
+
+    return render_template('iluminacion.html', ids=ids, iluminacion=iluminacion, fecha=fecha)
 
 @app.route('/humedad')
 def humedad():

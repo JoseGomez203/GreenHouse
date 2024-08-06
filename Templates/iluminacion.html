@@ -1,11 +1,35 @@
 {% extends './layout.html' %}
 
 {% block body %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <body>
-    <body style="background-color: #2D3937;"></body>
+
+    <div class="container title">
+        <h1>MÓDULO DE ILUMICACIÓN</h1>
+    </div>
+
+
+    <h1>Últimos 5 registros de iluminación</h1>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>iluminacion</th>
+        <th>Fecha</th>
+    </tr>
+
+    {% for i in range(ids|length) %}
+    <tr>
+        <td>{{ ids[i] }}</td>
+        <td>{{ iluminacion[i] }}</td>
+        <td>{{ fecha[i] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+ 
     <div class="container23">
         <div class="chart">
-            <canvas id="myChart" width="500" height="500"></canvas>
+            <canvas id="Chart1" width="500" height="500"></canvas>
         </div>
         <div class="chart">
             <div class="white">
@@ -22,7 +46,7 @@
         </div>
     </div>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script src="../static/js/chart1.js"></script>
 
 

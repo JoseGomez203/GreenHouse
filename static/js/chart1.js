@@ -1,60 +1,105 @@
-const ctx = document.getElementById('myChart');
-
-new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    datasets: [{
-      label: '# of Votes',
-      data: [12, 19, 3, 5, 2, 3],
-      borderWidth: 1
-    }]
-  },
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    }
+document.addEventListener('DOMContentLoaded', (event) => {
+  if (document.getElementById('myChart')) {
+    fetchHumedadData();
+  } else if (document.getElementById('Chart1')) {
+    fetchIluminacionData();
+  } else if (document.getElementById('Chart2')) {
+    fetchHumedadSueloData();
   }
 });
 
-const ctx1 = document.getElementById('1Chart');
-new Chart(ctx1, {
-  type: 'line',
-  data: {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    datasets: [{
-      label: '# of Votes',
-      data: [16, 11, 6, 3, 8, 10],
-      borderWidth: 1
-    }]
-  },
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    }
-  }
-});
+async function fetchHumedadData() {
+  try {
+    const response = await fetch('http://localhost:3000/api/humedad');
+    const data = await response.json();
 
-const ctx2 = document.getElementById('2Chart');
-new Chart(ctx2, {
-  type: 'line',
-  data: {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    datasets: [{
-      label: '# of Votes',
-      data: [2, 5, 10, 16, 4, 8],
-      borderWidth: 1
-    }]
-  },
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true
+    const labels = data.map(item => new Date(item.fecha).toLocaleString());
+    const humidities = data.map(item => item.promedio);
+
+    const ctx = document.getElementById('myChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Humedad Promedio (%)',
+          data: humidities,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: false
+          }
+        }
       }
-    }
+    });
+  } catch (error) {
+    console.error('Error fetching data:', error);
   }
-});
+}
+
+async function fetchIluminacionData() {
+  try {
+    const response = await fetch('http://localhost:3000/api/iluminacion');
+    const data = await response.json();
+
+    const labels = data.map(item => new Date(item.fecha).toLocaleString());
+    const iluminacion = data.map(item => item.promedio);
+
+    const ctx = document.getElementById('Chart1').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Iluminación Promedio (lux)',
+          data: iluminacion,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: false
+          }
+        }
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
+
+async function fetchHumedadSueloData() {
+  try {
+    const response = await fetch('http://localhost:3000/api/humedad-suelo');
+    const data = await response.json();
+
+    const labels = data.map(item => new Date(item.fecha).toLocaleString());
+    const humedadSuelo = data.map(item => item.promedio);
+
+    const ctx = document.getElementById('Chart2').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Humedad del Suelo Promedio (%)',
+          data: humedadSuelo,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: false
+          }
+        }
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
