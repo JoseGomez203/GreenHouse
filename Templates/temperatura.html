@@ -22,17 +22,29 @@
         }
     </style>
 
-    <div class="container title">
-        <h1>MÓDULO DE TEMPERATURA</h1>
-    </div>
+<style>
+    .title {
+        text-align: center;
+        font-family: 'Arial', sans-serif; /* Cambia 'Arial' por la fuente que desees */
+    }
 
-
-    <h1>Últimos 5 registros de temperatura</h1>
+    .latest-records {
+        text-align: center;
+        font-family: 'Arial', sans-serif; /* Cambia 'Arial' por la fuente que desees */
+    }
+</style>
+<div class="container title">
+    <br><br>
+    <h1>MÓDULO DE TEMPERATURA</h1>
+</div>
+<br>
+<h6 class="latest-records">ÚLTIMOS 5 REGISTROS DE TEMPERATURA DETECTADOS</h6>
+<br>
 <table border="1">
     <tr>
-        <th>ID</th>
-        <th>Temperatura</th>
-        <th>Fecha</th>
+        <th>#</th>
+        <th>TEMPERATURA</th>
+        <th>FECHA Y HORA</th>
     </tr>
 
     {% for i in range(ids|length) %}

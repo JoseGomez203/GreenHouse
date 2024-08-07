@@ -22,12 +22,24 @@
         }
     </style>
 
-    <div class="container title">
-        <h1>MÓDULO DE HUMEDAD</h1>
-    </div>
+<style>
+    .title {
+        text-align: center;
+        font-family: 'Arial', sans-serif; /* Cambia 'Arial' por la fuente que desees */
+    }
 
-
-    <h1>Últimos 5 registros de humedad</h1>
+    .latest-records {
+        text-align: center;
+        font-family: 'Arial', sans-serif; /* Cambia 'Arial' por la fuente que desees */
+    }
+</style>
+<div class="container title">
+    <br><br>
+    <h1>MÓDULO DE HUMEDAD</h1>
+</div>
+<br>
+<h6 class="latest-records">ÚLTIMOS 5 REGISTROS DE HUMEDAD DETECTADOS</h6>
+<br>
 <table border="1">
     <tr>
         <th>#</th>
@@ -43,13 +55,10 @@
     </tr>
     {% endfor %}
 </table>
-
-
-
-
-
 <br>
-<br><br><br><br><br><br>
+
+
+
     <div class="container23">
         <div class="chart">
             <canvas id="myChart" width="500" height="500"></canvas>
